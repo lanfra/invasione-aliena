@@ -1,0 +1,5 @@
+#Escludo directory.
+temp
+__pycache__/
+#Escludo files.
+*.log
