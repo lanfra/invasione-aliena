@@ -1,5 +1,7 @@
 import sys
 import pygame
+from settings import Settings #Importo file setting
+from ship import Ship #Modulo astronave.
 
 class AlienInvasion:
     """Classe principale del gioco ALIEN INVASION"""
@@ -9,12 +11,12 @@ class AlienInvasion:
         pygame.init()
         self.clock = pygame.time.Clock()
 
-        #Finestra setting.
-        self.screen = pygame.display.set_mode((1200,800))
-        pygame.display.set_caption("Invasione Aliena")
+        #Setting della finestra.
+        self.settings = Settings() 
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_width))
 
-        #Colore di sfondo.
-        self.bg_color = (230, 230, 230)
+        pygame.display.set_caption("Invasione Aliena")
+        self.ship = Ship(self) #Richiamo l'astronave.
 
     def run_game(self):
         """Main Avvio gioco."""
@@ -24,10 +26,13 @@ class AlienInvasion:
                 if event.type == pygame.quit:
                     sys.exit()
 
-                #Colora schermata di sfondo.
-                self.screen.fill(self.bg_color)
+                #Colora schermata di sfondo, la ridimensiona e aggiunge elementi.
+                self.screen.fill(self.settings.bg_color)
+                self.ship.blitme()
+                
                 #Mostra finestra.
                 pygame.display.flip()
+
                 #Frequenza di aggiornamento schermata.
                 self.clock.tick(60) #Frequenza di aggiornamento di volte 60 al secondo.
 
